@@ -2,3 +2,5 @@
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflaresights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflaresights.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; upgrade-insecure-requests
