@@ -165,11 +165,11 @@ PowerShell • Linux CLI • SSH • UFW
 
 I also maintain a separate repository named:
 
-`cybersecurity-home-lab`
+[cybersecurity-home-lab](https://github.com/shivansh2589/cybersecurity-home-lab)
 
-This repository documents the deeper technical process of building, configuring, troubleshooting, and expanding my cybersecurity home lab.
+This public repository documents the deeper technical process of building, configuring, troubleshooting, and expanding my cybersecurity home lab.
 
-It is currently private while the documentation is being reviewed and organized.
+It currently includes pfSense installation, WAN/LAN configuration, firewall rules, network isolation, and troubleshooting documentation.
 
 ## Current Development
 
