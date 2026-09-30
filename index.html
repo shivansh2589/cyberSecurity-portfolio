@@ -47,6 +47,8 @@
     .pillbox{display:flex;flex-wrap:wrap;gap:9px}.pill{padding:7px 11px;border:1px solid rgba(17,215,255,.25);border-radius:999px;background:rgba(17,215,255,.06);color:#cceef7;font-size:.9rem}
     .project-card{position:relative;overflow:hidden}.project-card:after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
     .project-meta{font-size:.9rem;color:var(--accent);font-family:Consolas,monospace;margin-bottom:8px}
+    .evidence-link{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700}
+    .evidence-link:hover{text-decoration:underline}
     .lab-diagram{font-family:Consolas,monospace;background:#08131d;border:1px solid var(--border);border-radius:14px;padding:20px;color:#bfeaff;overflow:auto;white-space:pre}
     .achievements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.achievement{display:flex;gap:14px;align-items:flex-start}.dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:8px;box-shadow:0 0 16px rgba(17,215,255,.8);flex:0 0 auto}
     footer{border-top:1px solid var(--border);padding:32px 0 50px;color:var(--muted);text-align:center}
@@ -252,7 +254,7 @@
       <h2 class="section-title">Hands-on cybersecurity projects</h2>
       <p class="section-copy">Practical projects focused on network defense, monitoring, cloud integration, Linux administration, and virtualization.</p>
       <div class="grid">
-        <article class="card project-card"><div class="project-meta">PROJECT 01</div><h3>pfSense Network Segmentation</h3><p>Built a dedicated lab network, configured LAN/WAN interfaces, blocked access to the home network, preserved Internet access, and tested routing, DNS, ICMP, and firewall exceptions.</p></article>
+        <article class="card project-card"><div class="project-meta">PROJECT 01</div><h3>pfSense Network Segmentation</h3><p>Built a dedicated lab network, configured LAN/WAN interfaces, blocked access to the home network, preserved Internet access, and tested routing, DNS, ICMP, and firewall exceptions.</p><a class="evidence-link" href="pfsense-firewall-rules.png" target="_blank" rel="noopener">View Evidence ↗</a></article>
         <article class="card project-card"><div class="project-meta">PROJECT 02</div><h3>Wazuh SIEM Deployment</h3><p>Deployed Wazuh on Ubuntu, enrolled Windows and Ubuntu agents, resolved agent registration issues, monitored file integrity, UFW logs, disk use, listening ports, and login history.</p></article>
         <article class="card project-card"><div class="project-meta">PROJECT 03</div><h3>Azure Arc Hybrid Management</h3><p>Connected a Linux server to Azure using Azure Arc, verified heartbeat and cloud connectivity, and worked with connected-machine monitoring components.</p></article>
         <article class="card project-card"><div class="project-meta">PROJECT 04</div><h3>Microsoft Sentinel</h3><p>Created a Microsoft Sentinel environment for cloud-based SIEM practice, security monitoring, log collection, analytics, and threat-detection workflows.</p></article>
