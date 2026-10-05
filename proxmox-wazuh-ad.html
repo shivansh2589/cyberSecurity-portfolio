@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Proxmox Cybersecurity Home Lab | Laxmikant Sharma</title>
+  <title>Network Recovery and Wazuh Integration | Laxmikant Sharma</title>
   <style>
     body{font-family:Arial,Helvetica,sans-serif;max-width:980px;margin:0 auto;padding:32px 22px;line-height:1.6;color:#172033;background:#f7f9fc}
     h1,h2{color:#102a43}.card{background:#fff;border:1px solid #dfe7ef;border-radius:14px;padding:24px;margin:18px 0;box-shadow:0 4px 18px rgba(0,0,0,.04)}
@@ -14,32 +14,49 @@
   </style>
 </head>
 <body>
-  <h1>Proxmox Cybersecurity Home Lab</h1>
-  <p><strong>Virtualization • Wazuh SIEM/XDR • Windows Server • Active Directory • Privileged Group Monitoring • SOC Investigation</strong></p>
+  <h1>Network Recovery and Wazuh Integration</h1>
+  <p><strong>October 1–4, 2026 • Proxmox VE • pfSense • Wazuh SIEM/XDR • Windows Server • Active Directory • FIM • SOC Investigation</strong></p>
 
   <div class="card">
     <h2>Project Summary</h2>
-    <p>Built and troubleshot a multi-VM cybersecurity lab on Proxmox VE behind a pfSense-segmented network. The environment centralizes Windows and Linux systems, Wazuh security monitoring, Active Directory services, File Integrity Monitoring, privileged-group monitoring, and controlled SOC-style event investigations.</p>
-    <span class="tag">Proxmox VE</span><span class="tag">pfSense</span><span class="tag">Wazuh</span><span class="tag">Windows Server 2022</span><span class="tag">Active Directory</span><span class="tag">Privileged Groups</span><span class="tag">Ubuntu</span><span class="tag">Kali Linux</span>
+    <p>Built, recovered, and validated a multi-VM cybersecurity lab on Proxmox VE behind a pfSense-segmented network. The project progressed from virtualization and network recovery into centralized Wazuh monitoring, Active Directory security-event validation, File Integrity Monitoring, SOC-style event correlation, and privileged Domain Admins membership monitoring.</p>
+    <span class="tag">Proxmox VE</span><span class="tag">pfSense</span><span class="tag">Wazuh</span><span class="tag">Windows Server 2022</span><span class="tag">Active Directory</span><span class="tag">FIM</span><span class="tag">Privileged Groups</span><span class="tag">Ubuntu</span><span class="tag">Kali Linux</span>
   </div>
 
   <div class="card">
-    <h2>Key Accomplishments</h2>
+    <h2>October 1 — Proxmox Build and VM Foundation</h2>
     <ul>
-      <li>Diagnosed and repaired a Proxmox connectivity failure involving the live Linux bridge.</li>
-      <li>Validated gateway, Internet, and VM-to-VM connectivity across the lab.</li>
-      <li>Enrolled Windows, Windows Server, Ubuntu, and Kali endpoints into Wazuh.</li>
-      <li>Configured real-time Windows File Integrity Monitoring and verified file creation and checksum-change alerts.</li>
-      <li>Validated Active Directory authentication and account-management events in Wazuh.</li>
-      <li>Validated privileged Domain Admins membership monitoring using a controlled test account.</li>
-      <li>Verified Event ID 4728 when the account was added to Domain Admins and Event ID 4729 when it was removed.</li>
-      <li>Created a reusable Windows Server / AD security-event monitoring view.</li>
-      <li>Performed a mini SOC investigation correlating repeated failed logons with an account lockout.</li>
+      <li>Deployed Proxmox VE on dedicated hardware and integrated it with the isolated <code>192.168.10.0/24</code> cybersecurity lab network.</li>
+      <li>Created and configured Ubuntu Server, Kali Linux, Wazuh Server, and Windows Server 2022 virtual machines.</li>
+      <li>Established the base architecture for Windows, Linux, SIEM, and Active Directory testing.</li>
     </ul>
   </div>
 
   <div class="card">
-    <h2>Active Directory Security Events Validated</h2>
+    <h2>October 2–3 — Network Recovery and Wazuh Integration</h2>
+    <ul>
+      <li>Diagnosed a Proxmox connectivity failure where the host became unreachable even though its static address and route remained configured.</li>
+      <li>Identified that the physical NIC was missing from the live <code>vmbr0</code> Linux bridge.</li>
+      <li>Restored the interface, reattached it to <code>vmbr0</code>, reloaded networking, and verified the repair survived reboot.</li>
+      <li>Validated gateway, Internet, and VM-to-VM communication after recovery.</li>
+      <li>Verified Wazuh Manager, Indexer, and Dashboard services and enrolled Windows, Windows Server, Ubuntu, and Kali endpoints.</li>
+      <li>Confirmed Windows security-event collection, including failed-logon alerting from Windows Server 2022.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Windows File Integrity Monitoring</h2>
+    <p>Configured real-time Windows File Integrity Monitoring using a dedicated test directory and verified both file creation and checksum-change activity in Wazuh.</p>
+    <ul>
+      <li><span class="metric">Rule 554</span> — file added</li>
+      <li><span class="metric">Rule 550</span> — integrity checksum changed</li>
+      <li>MD5, SHA1, and SHA256 integrity data captured for validation.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Active Directory Security Monitoring</h2>
+    <p>Windows Server 2022 was monitored as an Active Directory Domain Controller and Wazuh was used to validate key account-management and authentication events.</p>
     <ul>
       <li><span class="metric">4624</span> — Successful logon</li>
       <li><span class="metric">4625</span> — Failed logon</li>
@@ -56,8 +73,15 @@
   </div>
 
   <div class="card">
-    <h2>Privileged Domain Admins Monitoring</h2>
-    <p>A controlled account named <strong>PrivTest</strong> was temporarily added to the <strong>Domain Admins</strong> group and then removed. Wazuh captured both membership changes and exposed the changed member, the privileged target group, the administrative actor, and the domain controller that recorded the event.</p>
+    <h2>SOC-Style Investigation</h2>
+    <p>A controlled account-lockout scenario was used to correlate repeated failed authentication attempts with the resulting lockout event.</p>
+    <p><strong>Investigation chain:</strong> 4625 → 4625 → 4625 → 4740</p>
+    <p>Wazuh was used to review the target account, source system, timestamps, rule IDs, severity, and Windows Security event context. The activity was confirmed as authorized lab testing.</p>
+  </div>
+
+  <div class="card">
+    <h2>October 4 — Privileged Domain Admins Monitoring</h2>
+    <p>A controlled account named <strong>PrivTest</strong> was temporarily added to the <strong>Domain Admins</strong> group and then removed. Wazuh captured both membership changes and exposed the changed member, privileged target group, administrative actor, and domain controller.</p>
     <p><strong>4728:</strong> PrivTest added to Domain Admins<br><strong>4729:</strong> PrivTest removed from Domain Admins</p>
     <div class="evidence">
       <figure>
@@ -69,18 +93,11 @@
         <figcaption>Wazuh evidence — Event ID 4729, PrivTest removed from Domain Admins.</figcaption>
       </figure>
     </div>
-    <p>This demonstrates centralized visibility into high-impact Active Directory privilege changes.</p>
-  </div>
-
-  <div class="card">
-    <h2>SOC Investigation Example</h2>
-    <p>A controlled test account was configured with a temporary lockout policy. Three failed authentication attempts generated Event ID 4625 events followed by Event ID 4740. Wazuh was used to review the target account, timestamps, source system, rule IDs, and severity.</p>
-    <p><strong>Assessment:</strong> Authorized lab activity. No malicious activity identified.</p>
   </div>
 
   <div class="card">
     <h2>Skills Demonstrated</h2>
-    <p>Proxmox VE administration, pfSense integration, Windows Server administration, Active Directory, privileged-group monitoring, DNS, Wazuh SIEM/XDR, Windows Security Event analysis, File Integrity Monitoring, PowerShell, Linux administration, event correlation, SOC triage, VM resource management, and technical documentation.</p>
+    <p>Proxmox VE administration, Linux bridge troubleshooting, pfSense integration, Windows Server administration, Active Directory, privileged-group monitoring, DNS, Wazuh SIEM/XDR, Windows Security Event analysis, File Integrity Monitoring, PowerShell, Linux administration, event correlation, SOC triage, VM resource management, and technical documentation.</p>
   </div>
 
   <div class="card">
