@@ -1,0 +1,76 @@
+name: Update homepage Project 06
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-homepage-project06.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-project-card:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update Project 06 card
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+
+          old_title = 'Proxmox Virtualization Lab'
+          old_text = ('Installed Proxmox VE on dedicated hardware and began configuring the virtualization host '
+                      'for Windows, Linux, security tools, and future lab services. VM deployment and expanded '
+                      '2.5GbE networking are currently in progress.')
+          new_title = 'Proxmox + Wazuh Active Directory Lab'
+          new_text = ('Built a Proxmox cybersecurity lab with Windows Server 2022, Active Directory, Wazuh SIEM/XDR, '
+                      'Ubuntu and Kali. Validated privileged Domain Admins membership monitoring with Windows Security '
+                      'Event IDs 4728 and 4729, including controlled add/remove testing and SOC-style investigation.')
+
+          if old_title not in html:
+              raise SystemExit('Project 06 title not found; no changes made.')
+
+          html = html.replace(old_title, new_title, 1)
+          if old_text in html:
+              html = html.replace(old_text, new_text, 1)
+          else:
+              # Fallback: replace the first paragraph after the Project 06 title.
+              pos = html.find(new_title)
+              head = html[:pos]
+              tail = html[pos:]
+              tail, count = re.subn(r'(<p[^>]*>)(.*?)(</p>)', r'\1' + new_text + r'\3', tail, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit('Project 06 description not found; no changes made.')
+              html = head + tail
+
+          # Add evidence link to the Project 06 card if it is not already present.
+          pos = html.find(new_title)
+          window_end = html.find('</div>', pos)
+          if window_end == -1:
+              window_end = pos + 2500
+          snippet = html[pos:window_end]
+          if 'proxmox-wazuh-ad.html' not in snippet:
+              link = '<a href="proxmox-wazuh-ad.html" class="project-link">View Evidence ↗</a>'
+              p_end = html.find('</p>', pos)
+              if p_end == -1:
+                  raise SystemExit('Project 06 paragraph closing tag not found.')
+              html = html[:p_end+4] + link + html[p_end+4:]
+
+          path.write_text(html, encoding='utf-8')
+
+      - name: Commit homepage update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Update homepage Proxmox Wazuh AD project card"
+          git push
