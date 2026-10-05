@@ -2,7 +2,7 @@
 
 Welcome to my cybersecurity portfolio.
 
-I am **Laxmikant Sharma**, a Cyber & Cloud Security Professional graduate from Robertson College in Winnipeg, Manitoba. This portfolio documents my hands-on work in cybersecurity, network defense, SIEM, cloud security, Linux and Windows administration, firewall configuration, and virtualization.
+I am **Laxmikant Sharma**, a Cyber & Cloud Security Professional graduate from Robertson College in Winnipeg, Manitoba. This portfolio documents hands-on work in cybersecurity, network defense, SIEM, cloud security, Windows and Linux administration, firewall configuration, virtualization, and security monitoring.
 
 ## Portfolio
 
@@ -13,16 +13,50 @@ The portfolio includes:
 - Hands-on cybersecurity projects
 - Cybersecurity home-lab architecture
 - pfSense firewall and network-segmentation work
-- Wazuh SIEM deployment experience
+- Proxmox VE virtualization
+- Wazuh SIEM/XDR deployment and monitoring
+- Windows Server 2022 and Active Directory security monitoring
+- File Integrity Monitoring
+- SOC-style event investigation
 - Microsoft Sentinel and Azure Arc experience
 - Splunk training and security-monitoring skills
 - Linux and Windows administration
-- Proxmox virtualization
 - Certifications and technical training
 - Resume and professional experience
-- Project evidence and screenshots
 
 ## Featured Projects
+
+### Proxmox Cybersecurity Home Lab with Wazuh & Active Directory Monitoring
+
+Built a centralized cybersecurity lab on **Proxmox VE** and integrated it with the existing pfSense-segmented `192.168.10.0/24` network.
+
+The environment includes:
+
+- Wazuh Server
+- Windows Server 2022
+- Active Directory Domain Services and DNS
+- Ubuntu Server
+- Kali Linux
+- Windows endpoints
+
+Key work completed:
+
+- Deployed and networked Windows and Linux virtual machines in Proxmox
+- Diagnosed and repaired a Proxmox Linux bridge failure that made the host unreachable
+- Restored `vmbr0` connectivity and verified the repair after reboot
+- Validated gateway, Internet, and VM-to-VM communication
+- Deployed Wazuh Manager, Indexer, and Dashboard
+- Enrolled Windows, Windows Server, Ubuntu, and Kali agents
+- Configured and validated real-time Windows File Integrity Monitoring
+- Monitored Active Directory authentication and account-management events
+- Built a reusable Wazuh view for Windows Server / AD security activity
+- Correlated repeated failed logons with an account-lockout event in a SOC-style mini investigation
+
+Verified Windows Security events included:
+
+`4624`, `4625`, `4720`, `4722`, `4724`, `4725`, `4726`, `4728`, `4729`, `4740`, and `4767`.
+
+This project demonstrates practical experience with virtualization, Windows Server, Active Directory, SIEM monitoring, event analysis, FIM, troubleshooting, and basic SOC investigation workflows.
 
 ### pfSense Network Segmentation
 
@@ -35,24 +69,23 @@ Key work includes:
 - Blocked lab systems from accessing the primary home network
 - Preserved Internet connectivity for lab devices
 - Tested routing, DNS, ICMP, SSH, and firewall rules
-- Documented firewall-rule evidence in the portfolio
+- Documented firewall-rule evidence and troubleshooting
 
-### Wazuh SIEM Deployment
+### Wazuh SIEM / XDR
 
-Deployed and configured Wazuh for endpoint monitoring and security analysis.
+Wazuh now runs as a dedicated VM inside the Proxmox lab and provides centralized monitoring across Windows and Linux endpoints.
 
-Hands-on work included:
+Hands-on work includes:
 
-- Wazuh server deployment on Ubuntu
-- Windows and Ubuntu agent enrollment
-- Troubleshooting agent-registration issues
-- File-integrity monitoring
-- UFW log monitoring
-- Disk-usage monitoring
-- Listening-port monitoring
-- Login-history monitoring
-
-The original Wazuh server environment is currently being transitioned as part of the new Proxmox lab build.
+- Wazuh Manager, Indexer, and Dashboard validation
+- Windows and Linux agent enrollment
+- Windows Security event collection
+- Active Directory event monitoring
+- File Integrity Monitoring
+- Authentication monitoring
+- Account-lockout detection
+- Security event correlation
+- Troubleshooting agent and connectivity issues
 
 ### Azure Arc Hybrid Management
 
@@ -91,27 +124,17 @@ Work included:
 - Linux networking
 - Connectivity troubleshooting
 
-### Proxmox Virtualization Lab
-
-Installed **Proxmox VE on dedicated hardware** and began migrating the cybersecurity lab to a centralized virtualization platform.
-
-Current work includes:
-
-- Proxmox VE host configuration
-- Planning Windows and Linux virtual machines
-- Security-tool hosting
-- Lab-service consolidation
-- Expanded 2.5GbE networking
-- Future Wazuh deployment inside the Proxmox environment
-
 ## Cybersecurity Home Lab
 
 My lab uses a segmented architecture built around:
 
 - pfSense
 - TP-Link access point
+- Proxmox VE
 - Windows 11
 - Windows Server 2022
+- Active Directory Domain Services
+- DNS
 - Ubuntu Server
 - Kali Linux
 - Wazuh
@@ -120,32 +143,34 @@ My lab uses a segmented architecture built around:
 - Microsoft Sentinel
 - Splunk
 - VMware Fusion
-- Proxmox VE
 
 The lab is designed for hands-on practice with:
 
 - Network defense
 - Firewall administration
-- SIEM
+- Virtualization
+- SIEM / XDR
 - Threat detection
+- Active Directory monitoring
 - Windows and Linux monitoring
+- File Integrity Monitoring
+- SOC-style event investigation
 - Troubleshooting
 - Cloud-security integration
-- Virtualization
 
 ## Technologies
 
 **Security & SIEM**
 
-Wazuh • Microsoft Sentinel • Splunk • CrowdStrike training • Threat Detection • Log Analysis
+Wazuh • Microsoft Sentinel • Splunk • CrowdStrike training • Threat Detection • Log Analysis • File Integrity Monitoring
 
 **Networking & Firewalls**
 
 pfSense • TCP/IP • IPv4 • DNS • DHCP • ICMP • SSH • Routing • Network Segmentation • Firewall Rules
 
-**Systems**
+**Systems & Identity**
 
-Windows 11 • Windows Server 2022 • Ubuntu Server • Kali Linux
+Windows 11 • Windows Server 2022 • Active Directory • DNS • Ubuntu Server • Kali Linux
 
 **Cloud**
 
@@ -163,26 +188,23 @@ PowerShell • Linux CLI • SSH • UFW
 
 ### Cybersecurity Home Lab
 
-I also maintain a separate repository named:
+I maintain a separate technical repository:
 
 [cybersecurity-home-lab](https://github.com/shivansh2589/cybersecurity-home-lab)
 
-This public repository documents the deeper technical process of building, configuring, troubleshooting, and expanding my cybersecurity home lab.
-
-It currently includes pfSense installation, WAN/LAN configuration, firewall rules, network isolation, and troubleshooting documentation.
+It contains deeper technical documentation for pfSense and the Proxmox cybersecurity lab, including network recovery, Wazuh deployment, Windows Server / Active Directory monitoring, FIM, event IDs, troubleshooting steps, and SOC-style investigation notes.
 
 ## Current Development
 
-The lab continues to evolve.
-
 Current priorities include:
 
-- Completing the Proxmox virtualization environment
-- Deploying lab virtual machines
-- Rebuilding Wazuh within the Proxmox environment
-- Expanding 2.5GbE networking
-- Adding additional project screenshots and evidence
-- Continuing SOC, network-defense, threat-detection, and cloud-security practice
+- Privileged Active Directory group monitoring
+- Additional SOC-style investigations
+- Custom Wazuh detection rules
+- Expanded Linux monitoring
+- Additional attack/defense scenarios
+- Additional screenshots and evidence
+- Continued cloud-security integration
 
 ## About Me
 
