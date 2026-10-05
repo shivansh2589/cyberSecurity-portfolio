@@ -27,6 +27,7 @@
     <h2>October 1 — Proxmox Build and VM Foundation</h2>
     <ul>
       <li>Deployed Proxmox VE on dedicated hardware and integrated it with the isolated <code>192.168.10.0/24</code> cybersecurity lab network.</li>
+      <li>Configured the Proxmox management address as <code>192.168.10.80/24</code> with pfSense gateway <code>192.168.10.1</code>.</li>
       <li>Created and configured Ubuntu Server, Kali Linux, Wazuh Server, and Windows Server 2022 virtual machines.</li>
       <li>Established the base architecture for Windows, Linux, SIEM, and Active Directory testing.</li>
     </ul>
@@ -35,12 +36,31 @@
   <div class="card">
     <h2>October 2–3 — Network Recovery and Wazuh Integration</h2>
     <ul>
-      <li>Diagnosed a Proxmox connectivity failure where the host became unreachable even though its static address and route remained configured.</li>
-      <li>Identified that the physical NIC was missing from the live <code>vmbr0</code> Linux bridge.</li>
-      <li>Restored the interface, reattached it to <code>vmbr0</code>, reloaded networking, and verified the repair survived reboot.</li>
-      <li>Validated gateway, Internet, and VM-to-VM communication after recovery.</li>
+      <li>Diagnosed a Proxmox connectivity failure where the host at <code>192.168.10.80</code> became unreachable from the Windows management system.</li>
+      <li>Verified the Proxmox route table still contained the default route through <code>192.168.10.1</code> on <code>vmbr0</code>.</li>
+      <li>Reviewed <code>/etc/network/interfaces</code> and confirmed the static bridge configuration for <code>vmbr0</code>.</li>
+      <li>Used <code>bridge link show</code>, <code>ip addr</code>, and interface-state checks to isolate the problem to the physical NIC / live bridge path.</li>
+      <li>Brought the physical interface back up, restored bridge connectivity, and repeatedly re-tested the gateway and Windows management endpoint.</li>
+      <li>Confirmed successful Windows-to-Proxmox ICMP testing with <strong>0% packet loss</strong> after recovery.</li>
+      <li>Restored access to the Proxmox web interface at <code>https://192.168.10.80:8006</code>.</li>
+      <li>Reviewed pfSense lab addressing and static mappings during validation.</li>
       <li>Verified Wazuh Manager, Indexer, and Dashboard services and enrolled Windows, Windows Server, Ubuntu, and Kali endpoints.</li>
       <li>Confirmed Windows security-event collection, including failed-logon alerting from Windows Server 2022.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Troubleshooting Evidence — October 1–3</h2>
+    <p>The project record includes screenshots captured throughout the recovery sequence. They document the failure state, Layer 2/Layer 3 checks, and successful recovery validation.</p>
+    <ul>
+      <li>Microsoft Edge timeout while attempting to reach <code>192.168.10.80:8006</code>.</li>
+      <li>Proxmox <code>ip route</code> output showing the default route via <code>192.168.10.1</code> and source address <code>192.168.10.80</code>.</li>
+      <li><code>/etc/network/interfaces</code> showing the static <code>vmbr0</code> configuration and bridge port assignment.</li>
+      <li>Physical-interface and bridge-state troubleshooting using <code>ip link</code>, <code>ip addr</code>, and <code>bridge link show</code>.</li>
+      <li>Initial <code>Destination Host Unreachable</code> / 100% packet-loss results during diagnosis.</li>
+      <li>Successful Windows ping to <code>192.168.10.80</code> with four replies and 0% loss after recovery.</li>
+      <li>pfSense DHCP/static-mapping page showing the organized lab IP plan for infrastructure and security VMs.</li>
+      <li>Recovered Proxmox web console showing the VM inventory after connectivity was restored.</li>
     </ul>
   </div>
 
@@ -97,7 +117,7 @@
 
   <div class="card">
     <h2>Skills Demonstrated</h2>
-    <p>Proxmox VE administration, Linux bridge troubleshooting, pfSense integration, Windows Server administration, Active Directory, privileged-group monitoring, DNS, Wazuh SIEM/XDR, Windows Security Event analysis, File Integrity Monitoring, PowerShell, Linux administration, event correlation, SOC triage, VM resource management, and technical documentation.</p>
+    <p>Proxmox VE administration, Linux bridge troubleshooting, TCP/IP, static IP configuration, pfSense integration, Windows Server administration, Active Directory, privileged-group monitoring, DNS, Wazuh SIEM/XDR, Windows Security Event analysis, File Integrity Monitoring, PowerShell, Linux administration, event correlation, SOC triage, VM resource management, network recovery validation, and technical documentation.</p>
   </div>
 
   <div class="card">
