@@ -10,6 +10,7 @@
     .tag{display:inline-block;background:#e9f2ff;border-radius:999px;padding:5px 10px;margin:3px;font-size:.9rem}.metric{font-weight:700;color:#0b6bcb}
     code{background:#eef3f8;padding:2px 5px;border-radius:4px}.footer{margin-top:34px;font-size:.95rem;color:#536273}
     a{color:#0b6bcb;text-decoration:none} a:hover{text-decoration:underline}
+    .evidence{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.evidence figure{margin:0}.evidence img{width:100%;height:auto;border:1px solid #dfe7ef;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}figcaption{font-size:.9rem;color:#536273;margin-top:7px}@media(max-width:760px){.evidence{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -56,8 +57,18 @@
 
   <div class="card">
     <h2>Privileged Domain Admins Monitoring</h2>
-    <p>A controlled account was temporarily added to the <strong>Domain Admins</strong> group and then removed. Wazuh captured both membership changes and exposed the changed member, the privileged target group, the administrative actor, and the domain controller that recorded the event.</p>
-    <p><strong>4728:</strong> account added to Domain Admins<br><strong>4729:</strong> account removed from Domain Admins</p>
+    <p>A controlled account named <strong>PrivTest</strong> was temporarily added to the <strong>Domain Admins</strong> group and then removed. Wazuh captured both membership changes and exposed the changed member, the privileged target group, the administrative actor, and the domain controller that recorded the event.</p>
+    <p><strong>4728:</strong> PrivTest added to Domain Admins<br><strong>4729:</strong> PrivTest removed from Domain Admins</p>
+    <div class="evidence">
+      <figure>
+        <a href="assets/domain-admins-4728.jpg" target="_blank" rel="noopener"><img src="assets/domain-admins-4728.jpg" alt="Wazuh Event ID 4728 showing PrivTest added to Domain Admins"></a>
+        <figcaption>Wazuh evidence — Event ID 4728, PrivTest added to Domain Admins.</figcaption>
+      </figure>
+      <figure>
+        <a href="assets/domain-admins-4729.jpg" target="_blank" rel="noopener"><img src="assets/domain-admins-4729.jpg" alt="Wazuh Event ID 4729 showing PrivTest removed from Domain Admins"></a>
+        <figcaption>Wazuh evidence — Event ID 4729, PrivTest removed from Domain Admins.</figcaption>
+      </figure>
+    </div>
     <p>This demonstrates centralized visibility into high-impact Active Directory privilege changes.</p>
   </div>
 
