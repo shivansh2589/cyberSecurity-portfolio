@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Proxmox Cybersecurity Home Lab | Laxmikant Sharma</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;max-width:980px;margin:0 auto;padding:32px 22px;line-height:1.6;color:#172033;background:#f7f9fc}
+    h1,h2{color:#102a43}.card{background:#fff;border:1px solid #dfe7ef;border-radius:14px;padding:24px;margin:18px 0;box-shadow:0 4px 18px rgba(0,0,0,.04)}
+    .tag{display:inline-block;background:#e9f2ff;border-radius:999px;padding:5px 10px;margin:3px;font-size:.9rem}.metric{font-weight:700;color:#0b6bcb}
+    code{background:#eef3f8;padding:2px 5px;border-radius:4px}.footer{margin-top:34px;font-size:.95rem;color:#536273}
+    a{color:#0b6bcb;text-decoration:none} a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <h1>Proxmox Cybersecurity Home Lab</h1>
+  <p><strong>Virtualization • Wazuh SIEM/XDR • Windows Server • Active Directory • Network Troubleshooting • SOC Investigation</strong></p>
+
+  <div class="card">
+    <h2>Project Summary</h2>
+    <p>Built and troubleshot a multi-VM cybersecurity lab on Proxmox VE behind a pfSense-segmented network. The environment centralizes Windows and Linux systems, Wazuh security monitoring, Active Directory services, File Integrity Monitoring, and controlled SOC-style event investigations.</p>
+    <span class="tag">Proxmox VE</span><span class="tag">pfSense</span><span class="tag">Wazuh</span><span class="tag">Windows Server 2022</span><span class="tag">Active Directory</span><span class="tag">Ubuntu</span><span class="tag">Kali Linux</span>
+  </div>
+
+  <div class="card">
+    <h2>Environment</h2>
+    <ul>
+      <li>Proxmox VE host on the isolated <code>192.168.10.0/24</code> cybersecurity lab network</li>
+      <li>Dedicated Wazuh Manager, Indexer, and Dashboard VM</li>
+      <li>Windows Server 2022 Domain Controller with AD DS and DNS</li>
+      <li>Ubuntu Server and Kali Linux endpoints</li>
+      <li>Windows endpoint monitoring through Wazuh agents</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Key Accomplishments</h2>
+    <ul>
+      <li>Diagnosed a Proxmox connectivity failure caused by the physical NIC being absent from the live <code>vmbr0</code> bridge.</li>
+      <li>Restored host and VM networking, reloaded the saved configuration, and verified the repair survived a reboot.</li>
+      <li>Validated gateway, Internet, and VM-to-VM connectivity across the lab.</li>
+      <li>Enrolled Windows, Windows Server, Ubuntu, and Kali endpoints into Wazuh.</li>
+      <li>Configured real-time Windows File Integrity Monitoring and verified file creation and checksum-change alerts.</li>
+      <li>Validated Active Directory authentication and account-management events in Wazuh.</li>
+      <li>Created a reusable Windows Server / AD security-event monitoring view.</li>
+      <li>Performed a mini SOC investigation correlating repeated failed logons with an account lockout.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Active Directory Security Events Validated</h2>
+    <p>Confirmed Windows Security events in Wazuh for:</p>
+    <ul>
+      <li><span class="metric">4624</span> — Successful logon</li>
+      <li><span class="metric">4625</span> — Failed logon</li>
+      <li><span class="metric">4720</span> — User account created</li>
+      <li><span class="metric">4722</span> — User account enabled</li>
+      <li><span class="metric">4724</span> — Password reset attempt</li>
+      <li><span class="metric">4725</span> — User account disabled</li>
+      <li><span class="metric">4726</span> — User account deleted</li>
+      <li><span class="metric">4728</span> — Member added to global security group</li>
+      <li><span class="metric">4729</span> — Member removed from global security group</li>
+      <li><span class="metric">4740</span> — User account locked out</li>
+      <li><span class="metric">4767</span> — User account unlocked</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>SOC Investigation Example</h2>
+    <p>A controlled test account was configured with a temporary lockout policy. Three failed authentication attempts generated Event ID 4625 events followed by Event ID 4740. Wazuh was used to review the target account, timestamps, source system, rule IDs, and severity.</p>
+    <p><strong>Assessment:</strong> Authorized lab activity. No malicious activity identified. The account was unlocked after validation and temporary test objects were removed.</p>
+  </div>
+
+  <div class="card">
+    <h2>Skills Demonstrated</h2>
+    <p>Proxmox VE administration, Linux bridge troubleshooting, pfSense integration, Windows Server administration, Active Directory, DNS, Wazuh SIEM/XDR, Windows Security Event analysis, File Integrity Monitoring, PowerShell, Linux administration, event correlation, SOC triage, VM resource management, and technical documentation.</p>
+  </div>
+
+  <div class="card">
+    <h2>Technical Documentation</h2>
+    <p>Full technical evidence, commands, troubleshooting steps, event IDs, and validation notes are documented in the public home-lab repository.</p>
+    <p><a href="https://github.com/shivansh2589/cybersecurity-home-lab/tree/main/Proxmox">View the Proxmox technical documentation on GitHub</a></p>
+  </div>
+
+  <p class="footer"><a href="./">← Back to portfolio</a></p>
+</body>
+</html>
