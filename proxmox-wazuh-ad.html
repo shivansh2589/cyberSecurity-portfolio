@@ -15,12 +15,12 @@
 </head>
 <body>
   <h1>Network Recovery and Wazuh Integration</h1>
-  <p><strong>October 1–4, 2026 • Proxmox VE • pfSense • Wazuh SIEM/XDR • Windows Server • Active Directory • FIM • SOC Investigation</strong></p>
+  <p><strong>October 1–5, 2026 • Proxmox VE • pfSense • Wazuh SIEM/XDR • Windows Server • Active Directory • FIM • Detection Engineering • Email Alerting</strong></p>
 
   <div class="card">
     <h2>Project Summary</h2>
-    <p>Built, recovered, and validated a multi-VM cybersecurity lab on Proxmox VE behind a pfSense-segmented network. The project progressed from virtualization and network recovery into centralized Wazuh monitoring, Active Directory security-event validation, File Integrity Monitoring, SOC-style event correlation, and privileged Domain Admins membership monitoring.</p>
-    <span class="tag">Proxmox VE</span><span class="tag">pfSense</span><span class="tag">Wazuh</span><span class="tag">Windows Server 2022</span><span class="tag">Active Directory</span><span class="tag">FIM</span><span class="tag">Privileged Groups</span><span class="tag">Ubuntu</span><span class="tag">Kali Linux</span>
+    <p>Built, recovered, and validated a multi-VM cybersecurity lab on Proxmox VE behind a pfSense-segmented network. The project progressed from virtualization and network recovery into centralized Wazuh monitoring, Active Directory security-event validation, File Integrity Monitoring, SOC-style event correlation, privileged Domain Admins membership monitoring, custom Wazuh detection engineering, and email alert delivery.</p>
+    <span class="tag">Proxmox VE</span><span class="tag">pfSense</span><span class="tag">Wazuh</span><span class="tag">Windows Server 2022</span><span class="tag">Active Directory</span><span class="tag">FIM</span><span class="tag">Privileged Groups</span><span class="tag">Custom Rules</span><span class="tag">Postfix</span><span class="tag">Ubuntu</span><span class="tag">Kali Linux</span>
   </div>
 
   <div class="card">
@@ -116,8 +116,25 @@
   </div>
 
   <div class="card">
+    <h2>October 5 — Custom Wazuh Level 14 Detection and Email Alerting</h2>
+    <p>Extended the privileged-group monitoring workflow by creating a custom Wazuh child rule for <strong>Domain Admins</strong> membership changes. The custom detection was linked to built-in Wazuh rule <code>60159</code>, assigned Rule ID <code>100100</code>, and raised to <strong>Level 14</strong>.</p>
+    <ul>
+      <li>Matched the <code>Domain Admins</code> target group using a PCRE2 field condition.</li>
+      <li>Validated the custom rule with controlled Event IDs <code>4728</code> and <code>4729</code>.</li>
+      <li>Confirmed Wazuh displayed <code>rule.id: 100100</code>, <code>rule.level: 14</code>, and the description <strong>CRITICAL: Privileged Domain Admins membership changed.</strong></li>
+      <li>Configured Postfix on the Wazuh server as a local SMTP relay.</li>
+      <li>Configured authenticated Gmail relay using TLS, SASL, Google 2-Step Verification, and a dedicated App Password.</li>
+      <li>Used <code>mailq</code> to diagnose an initial Gmail authentication failure and corrected the credential method.</li>
+      <li>Verified a standalone Postfix test email before enabling Wazuh notifications.</li>
+      <li>Triggered another controlled privileged-group change and received a Wazuh email containing <strong>Alert level 14</strong>, Rule <code>100100</code>, Event ID <code>4728</code>, and the Domain Admins context.</li>
+    </ul>
+    <p><strong>End-to-end workflow:</strong> Active Directory change → Windows Security Event → Wazuh detection → custom Level 14 rule → Postfix relay → Gmail alert.</p>
+    <p><a href="https://github.com/shivansh2589/cybersecurity-home-lab/blob/main/Proxmox/custom-wazuh-domain-admin-alerting.md">View the detailed technical write-up on GitHub</a></p>
+  </div>
+
+  <div class="card">
     <h2>Skills Demonstrated</h2>
-    <p>Proxmox VE administration, Linux bridge troubleshooting, TCP/IP, static IP configuration, pfSense integration, Windows Server administration, Active Directory, privileged-group monitoring, DNS, Wazuh SIEM/XDR, Windows Security Event analysis, File Integrity Monitoring, PowerShell, Linux administration, event correlation, SOC triage, VM resource management, network recovery validation, and technical documentation.</p>
+    <p>Proxmox VE administration, Linux bridge troubleshooting, TCP/IP, static IP configuration, pfSense integration, Windows Server administration, Active Directory, privileged-group monitoring, Wazuh SIEM/XDR, custom rule development, Windows Security Event analysis, File Integrity Monitoring, PowerShell, Linux administration, event correlation, Postfix SMTP relay configuration, SASL/TLS troubleshooting, secure credential handling, alert workflow validation, SOC triage, VM resource management, network recovery validation, and technical documentation.</p>
   </div>
 
   <div class="card">
