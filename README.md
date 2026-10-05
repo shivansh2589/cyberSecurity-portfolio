@@ -51,10 +51,13 @@ Key work completed:
 - Monitored Active Directory authentication and account-management events
 - Built a reusable Wazuh view for Windows Server / AD security activity
 - Correlated repeated failed logons with an account-lockout event in a SOC-style mini investigation
+- Validated standard global security-group membership change events before moving to privileged-group monitoring
 
 Verified Windows Security events included:
 
 `4624`, `4625`, `4720`, `4722`, `4724`, `4725`, `4726`, `4728`, `4729`, `4740`, and `4767`.
+
+Events `4728` and `4729` were validated for global security-group membership changes. A separate controlled **Domain Admins** membership test is the next phase and is not presented as completed yet.
 
 This project demonstrates practical experience with virtualization, Windows Server, Active Directory, SIEM monitoring, event analysis, FIM, troubleshooting, and basic SOC investigation workflows.
 
@@ -198,7 +201,7 @@ It contains deeper technical documentation for pfSense and the Proxmox cybersecu
 
 Current priorities include:
 
-- Privileged Active Directory group monitoring
+- Controlled privileged Active Directory monitoring using Domain Admins membership changes
 - Additional SOC-style investigations
 - Custom Wazuh detection rules
 - Expanded Linux monitoring
