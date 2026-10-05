@@ -16,6 +16,7 @@ The portfolio includes:
 - Proxmox VE virtualization
 - Wazuh SIEM/XDR deployment and monitoring
 - Windows Server 2022 and Active Directory security monitoring
+- Privileged Active Directory group monitoring
 - File Integrity Monitoring
 - SOC-style event investigation
 - Microsoft Sentinel and Azure Arc experience
@@ -49,17 +50,17 @@ Key work completed:
 - Enrolled Windows, Windows Server, Ubuntu, and Kali agents
 - Configured and validated real-time Windows File Integrity Monitoring
 - Monitored Active Directory authentication and account-management events
+- Validated privileged **Domain Admins** membership monitoring with a controlled test account
+- Verified Event ID `4728` for adding the test account to Domain Admins and Event ID `4729` for removing it
+- Confirmed Wazuh showed the changed member, privileged target group, administrative actor, and domain controller
 - Built a reusable Wazuh view for Windows Server / AD security activity
 - Correlated repeated failed logons with an account-lockout event in a SOC-style mini investigation
-- Validated standard global security-group membership change events before moving to privileged-group monitoring
 
 Verified Windows Security events included:
 
 `4624`, `4625`, `4720`, `4722`, `4724`, `4725`, `4726`, `4728`, `4729`, `4740`, and `4767`.
 
-Events `4728` and `4729` were validated for global security-group membership changes. A separate controlled **Domain Admins** membership test is the next phase and is not presented as completed yet.
-
-This project demonstrates practical experience with virtualization, Windows Server, Active Directory, SIEM monitoring, event analysis, FIM, troubleshooting, and basic SOC investigation workflows.
+This project demonstrates practical experience with virtualization, Windows Server, Active Directory, privileged-group monitoring, SIEM monitoring, event analysis, FIM, troubleshooting, and basic SOC investigation workflows.
 
 ### pfSense Network Segmentation
 
@@ -84,6 +85,7 @@ Hands-on work includes:
 - Windows and Linux agent enrollment
 - Windows Security event collection
 - Active Directory event monitoring
+- Privileged Domain Admins membership monitoring
 - File Integrity Monitoring
 - Authentication monitoring
 - Account-lockout detection
@@ -94,97 +96,40 @@ Hands-on work includes:
 
 Connected Linux infrastructure to Microsoft Azure using Azure Arc.
 
-Work included:
-
-- Connected-machine onboarding
-- Agent and service validation
-- Heartbeat verification
-- Hybrid cloud-management experience
-- Integration with cloud-security monitoring workflows
+Work included connected-machine onboarding, agent and service validation, heartbeat verification, hybrid cloud-management experience, and integration with cloud-security monitoring workflows.
 
 ### Microsoft Sentinel
 
-Created and worked with a Microsoft Sentinel environment for cloud-based SIEM practice.
-
-Areas explored include:
-
-- Security monitoring
-- Log collection
-- Analytics
-- Threat-detection workflows
-- Cloud security operations
+Created and worked with a Microsoft Sentinel environment for cloud-based SIEM practice, including security monitoring, log collection, analytics, threat-detection workflows, and cloud security operations.
 
 ### Kali & Linux Security
 
-Configured Kali Linux and Ubuntu systems for cybersecurity testing and secure administration.
-
-Work included:
-
-- SSH administration
-- UFW firewall rules
-- Static IP configuration
-- Remote access
-- Linux networking
-- Connectivity troubleshooting
+Configured Kali Linux and Ubuntu systems for cybersecurity testing and secure administration, including SSH administration, UFW firewall rules, static IP configuration, remote access, Linux networking, and connectivity troubleshooting.
 
 ## Cybersecurity Home Lab
 
-My lab uses a segmented architecture built around:
+My lab uses a segmented architecture built around pfSense, a TP-Link access point, Proxmox VE, Windows 11, Windows Server 2022, Active Directory Domain Services, DNS, Ubuntu Server, Kali Linux, Wazuh, Microsoft Azure, Azure Arc, Microsoft Sentinel, Splunk, and VMware Fusion.
 
-- pfSense
-- TP-Link access point
-- Proxmox VE
-- Windows 11
-- Windows Server 2022
-- Active Directory Domain Services
-- DNS
-- Ubuntu Server
-- Kali Linux
-- Wazuh
-- Microsoft Azure
-- Azure Arc
-- Microsoft Sentinel
-- Splunk
-- VMware Fusion
-
-The lab is designed for hands-on practice with:
-
-- Network defense
-- Firewall administration
-- Virtualization
-- SIEM / XDR
-- Threat detection
-- Active Directory monitoring
-- Windows and Linux monitoring
-- File Integrity Monitoring
-- SOC-style event investigation
-- Troubleshooting
-- Cloud-security integration
+The lab is designed for hands-on practice with network defense, firewall administration, virtualization, SIEM/XDR, threat detection, Active Directory monitoring, Windows and Linux monitoring, File Integrity Monitoring, SOC-style event investigation, troubleshooting, and cloud-security integration.
 
 ## Technologies
 
-**Security & SIEM**
-
+**Security & SIEM**  
 Wazuh • Microsoft Sentinel • Splunk • CrowdStrike training • Threat Detection • Log Analysis • File Integrity Monitoring
 
-**Networking & Firewalls**
-
+**Networking & Firewalls**  
 pfSense • TCP/IP • IPv4 • DNS • DHCP • ICMP • SSH • Routing • Network Segmentation • Firewall Rules
 
-**Systems & Identity**
+**Systems & Identity**  
+Windows 11 • Windows Server 2022 • Active Directory • Privileged Group Monitoring • DNS • Ubuntu Server • Kali Linux
 
-Windows 11 • Windows Server 2022 • Active Directory • DNS • Ubuntu Server • Kali Linux
-
-**Cloud**
-
+**Cloud**  
 Microsoft Azure • Azure Arc • Microsoft Sentinel
 
-**Virtualization**
-
+**Virtualization**  
 Proxmox VE • VMware Fusion • Virtual Machines • Virtual Networking
 
-**Administration**
-
+**Administration**  
 PowerShell • Linux CLI • SSH • UFW
 
 ## Related Repository
@@ -195,13 +140,12 @@ I maintain a separate technical repository:
 
 [cybersecurity-home-lab](https://github.com/shivansh2589/cybersecurity-home-lab)
 
-It contains deeper technical documentation for pfSense and the Proxmox cybersecurity lab, including network recovery, Wazuh deployment, Windows Server / Active Directory monitoring, FIM, event IDs, troubleshooting steps, and SOC-style investigation notes.
+It contains deeper technical documentation for pfSense and the Proxmox cybersecurity lab, including network recovery, Wazuh deployment, Windows Server / Active Directory monitoring, FIM, privileged Domain Admins monitoring, event IDs, troubleshooting steps, and SOC-style investigation notes.
 
 ## Current Development
 
 Current priorities include:
 
-- Controlled privileged Active Directory monitoring using Domain Admins membership changes
 - Additional SOC-style investigations
 - Custom Wazuh detection rules
 - Expanded Linux monitoring
