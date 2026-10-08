@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Microsoft 365 Email Security Monitoring | Laxmikant Sharma</title><meta name="description" content="Personal Outlook, Microsoft Graph, Python/MSAL, systemd, and Wazuh email-security home-lab project with real test evidence."><style>
+    :root {
+      --bg: #071018;
+      --panel: #0d1722;
+      --panel2: #101d2b;
+      --text: #edf7ff;
+      --muted: #9eb0c2;
+      --accent: #11d7ff;
+      --accent2: #68f0c2;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.30);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:linear-gradient(180deg,#071018 0%,#0a111a 100%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1160px,92%);margin:auto}
+    header{position:sticky;top:0;z-index:50;background:rgba(7,16,24,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    nav{display:flex;align-items:center;justify-content:space-between;min-height:72px;gap:22px}
+    .brand{font-weight:800;letter-spacing:.4px}.brand span{color:var(--accent)}
+    .navlinks{display:flex;flex-wrap:wrap;gap:18px;font-size:.95rem}.navlinks a{color:var(--muted)}.navlinks a:hover{color:var(--accent)}
+    .hero{min-height:88vh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}
+    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(17,215,255,.12),transparent 42%)}
+    .hero-content{position:relative;max-width:900px;padding:80px 0}
+    .eyebrow{font-family:Consolas,monospace;color:var(--accent);font-size:1rem;margin-bottom:14px}
+    h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.95;margin:.1em 0 .18em;font-weight:900;letter-spacing:-3px}
+    h1 span{color:var(--accent)}
+    .subtitle{color:#c9d5df;font-size:clamp(1.05rem,2vw,1.35rem);margin-bottom:22px}
+    .intro{max-width:760px;margin:0 auto;color:var(--muted);font-size:1.08rem}
+    .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:34px}
+    .btn{display:inline-block;padding:13px 22px;border-radius:10px;font-weight:700;border:1px solid var(--border);transition:.2s ease}
+    .btn.primary{background:var(--accent);color:#001017;border-color:var(--accent)}
+    .btn.secondary{background:#15202c;color:#d8e2ea}.btn:hover{transform:translateY(-2px)}
+    section{padding:88px 0;scroll-margin-top:80px}
+    .section-title{font-size:2.2rem;margin:0 0 10px}.section-kicker{color:var(--accent);font-family:Consolas,monospace}.section-copy{color:var(--muted);max-width:800px;margin-bottom:34px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+    .card h3{margin-top:0;font-size:1.25rem}.card p,.card li{color:var(--muted)}
+    .cert-meta{font-size:.92rem;color:#b9c8d6;margin:.35rem 0}.cert-link{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700}.cert-link:hover{text-decoration:underline}
+    .pillbox{display:flex;flex-wrap:wrap;gap:9px}.pill{padding:7px 11px;border:1px solid rgba(17,215,255,.25);border-radius:999px;background:rgba(17,215,255,.06);color:#cceef7;font-size:.9rem}
+    .project-card{position:relative;overflow:hidden}.project-card:after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .project-meta{font-size:.9rem;color:var(--accent);font-family:Consolas,monospace;margin-bottom:8px}
+    .evidence-link{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700}
+    .evidence-link:hover{text-decoration:underline}
+    .lab-diagram{font-family:Consolas,monospace;background:#08131d;border:1px solid var(--border);border-radius:14px;padding:20px;color:#bfeaff;overflow:auto;white-space:pre}
+    .achievements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.achievement{display:flex;gap:14px;align-items:flex-start}.dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:8px;box-shadow:0 0 16px rgba(17,215,255,.8);flex:0 0 auto}
+    footer{border-top:1px solid var(--border);padding:32px 0 50px;color:var(--muted);text-align:center}
+    .contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:18px}.contact-links a{color:var(--accent)}
+    @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}.achievements{grid-template-columns:1fr}.navlinks{gap:11px;font-size:.88rem}}
+    @media (max-width:650px){nav{align-items:flex-start;padding:16px 0}.navlinks{justify-content:flex-end}.grid{grid-template-columns:1fr}h1{letter-spacing:-1.5px}.hero{min-height:auto}}
+  
+figure{margin:20px 0}figcaption{color:var(--muted);margin-top:12px}</style></head><body><header><div class="wrap"><nav><a class="brand" href="index.html">LS<span>::sec</span></a><div class="navlinks"><a href="index.html#projects">Projects</a><a href="index.html#achievements">Achievements</a></div></nav></div></header>
+<main class="wrap">
+<section><div class="section-kicker">// PROJECT 07 · HOME LAB</div><h1 style="font-size:clamp(2rem,5vw,4rem);line-height:1.1;letter-spacing:-1px">Microsoft 365 Email Security Monitoring</h1><p class="section-copy">Connected a personal Outlook mailbox to Microsoft Graph and Wazuh for automated metadata collection and email-security triage. Completed and validated October 8, 2026.</p>
+<div class="pillbox"><span class="pill">Microsoft Graph</span><span class="pill">Python / MSAL</span><span class="pill">systemd</span><span class="pill">Wazuh</span><span class="pill">JSONL</span></div></section>
+<section style="padding-top:0"><h2 class="section-title">Mailbox to Threat Hunting</h2><pre class="lab-diagram">Controlled Gmail test → Personal Outlook
+    → Microsoft Graph (delegated Mail.Read)
+    → Python / MSAL + message-ID deduplication
+    → JSONL → Wazuh JSON ingestion
+    → Custom rules → Threat Hunting
+
+systemd timer → monitor service every five minutes</pre>
+<p class="section-copy">Used device-code sign-in and silent token reuse with protected local files. Collected subject, sender, received time, importance, and read status. Deduplication avoided repeating previously collected mailbox messages.</p>
+<div class="grid"><article class="card"><h3>100500 · Level 8</h3><p>Microsoft account security notifications.</p></article><article class="card"><h3>100501 · Level 6</h3><p>High-importance email; validated with synthetic events and live Wazuh ingestion.</p></article><article class="card"><h3>100502 · Level 7</h3><p>Phishing-style subject keywords; verified using a real Gmail-to-Outlook test.</p></article></div></section>
+<section style="padding-top:0"><h2 class="section-title">Verified lab evidence</h2><p class="section-copy">A harmless test email with subject “Urgent action required - verify account” was collected by the automated monitor and matched rule 100502 at level 7 in Wazuh Threat Hunting. The dashboard shows two separately sent real test messages plus an earlier synthetic test.</p>
+<figure class="card"><h3>Active five-minute timer</h3><a href="assets/m365/systemd-timer.png"><img src="assets/m365/systemd-timer.png" alt="Enabled systemd timer active and waiting for its next run" loading="lazy" style="display:block;width:100%;height:auto"></a><figcaption>Enabled timer, active (waiting), with its next scheduled service trigger.</figcaption></figure>
+<figure class="card"><h3>Custom Wazuh rules</h3><a href="assets/m365/custom-rules.png"><img src="assets/m365/custom-rules.png" alt="Rule IDs 100500, 100501, and 100502 with levels 8, 6, and 7" loading="lazy" style="display:block;width:100%;height:auto"></a><figcaption>Three configured custom rule IDs and severity levels.</figcaption></figure>
+<figure class="card"><h3>Real alert in Threat Hunting</h3><a href="assets/m365/threat-hunting-real-alert.png"><img src="assets/m365/threat-hunting-real-alert.png" alt="Real Gmail test alerts in Wazuh Threat Hunting matching rule 100502 at level 7" loading="lazy" style="display:block;width:100%;height:auto"></a><figcaption>Real mailbox → Graph → Python → JSONL → Wazuh verification.</figcaption></figure></section>
+<section style="padding-top:0"><h2 class="section-title">Scope and lessons</h2><p class="section-copy">Hands-on home-lab work using a personal Microsoft account. Subject keywords and high importance are triage signals and do not prove maliciousness. This project demonstrates integration, automation, rule testing, and investigation; it does not claim enterprise production deployment or comprehensive phishing detection.</p><a class="btn primary" href="https://github.com/shivansh2589/cybersecurity-home-lab/tree/main/Microsoft-365-Email-Security">Technical documentation ↗</a></section>
+</main><footer>Hands-on cybersecurity learning · Laxmikant Sharma</footer></body></html>

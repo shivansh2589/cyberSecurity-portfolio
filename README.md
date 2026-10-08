@@ -27,6 +27,16 @@ The portfolio includes:
 
 ## Featured Projects
 
+### Microsoft 365 Email Security Monitoring
+
+Built and validated a personal Outlook → Microsoft Graph → Python/MSAL → Wazuh home-lab pipeline with delegated Mail.Read, local token reuse, message-ID deduplication, five-minute systemd scheduling, and JSONL ingestion. Custom rules 100500 (level 8), 100501 (level 6), and 100502 (level 7) cover Microsoft account security notifications, high-importance email, and phishing-style subject keywords. A real Gmail-to-Outlook test matched rule 100502 and was verified in Wazuh Threat Hunting.
+
+- [Project evidence page](https://cybersecurity-portfolio-bcu.pages.dev/m365-email-security.html)
+- [Architecture, setup, sanitized examples, validation, and screenshots](https://github.com/shivansh2589/cybersecurity-home-lab/tree/main/Microsoft-365-Email-Security)
+
+**Achievement:** Automated and validated email-security monitoring in a home lab, including three custom Wazuh rules and real mailbox-to-dashboard testing. These detections support triage; keyword matches do not establish maliciousness.
+
+
 ### Proxmox Cybersecurity Home Lab with Wazuh & Active Directory Monitoring
 
 Built a centralized cybersecurity lab on **Proxmox VE** and integrated it with the existing pfSense-segmented `192.168.10.0/24` network.
