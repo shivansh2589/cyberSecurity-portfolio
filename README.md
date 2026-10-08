@@ -27,6 +27,16 @@ The portfolio includes:
 
 ## Featured Projects
 
+### Kali–Wazuh SSH Detection and Defense
+
+Validated controlled SSH failures on a dedicated test bridge, traced journald events to a real custom Wazuh rule 100510 alert, and tested account-specific password restrictions. A fresh management login succeeded, and the temporary test-network firewall allowance was removed.
+
+**Achievement:** Verified the detection pipeline and before/after SSH behavior with real terminal and dashboard evidence. Public screenshot copies are pending redaction; brute-force correlation and working key login were not tested.
+
+- [Project page source](kali-wazuh-ssh-lab.html)
+- [Technical documentation](https://github.com/shivansh2589/cybersecurity-home-lab/tree/kali-wazuh-ssh-lab/Kali-Wazuh-SSH-Lab)
+
+
 ### Microsoft 365 Email Security Monitoring
 
 Built and validated a personal Outlook → Microsoft Graph → Python/MSAL → Wazuh home-lab pipeline with delegated Mail.Read, local token reuse, message-ID deduplication, five-minute systemd scheduling, and JSONL ingestion. Custom rules 100500 (level 8), 100501 (level 6), and 100502 (level 7) cover Microsoft account security notifications, high-importance email, and phishing-style subject keywords. A real Gmail-to-Outlook test matched rule 100502 and was verified in Wazuh Threat Hunting.
