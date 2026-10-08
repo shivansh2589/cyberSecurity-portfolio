@@ -34,7 +34,7 @@ Validated controlled SSH failures on a dedicated test bridge, traced journald ev
 **Achievement:** Verified the detection pipeline and before/after SSH behavior with real terminal and dashboard evidence. Public screenshot copies are pending redaction; brute-force correlation and working key login were not tested.
 
 - [Project page source](kali-wazuh-ssh-lab.html)
-- [Technical documentation](https://github.com/shivansh2589/cybersecurity-home-lab/tree/kali-wazuh-ssh-lab/Kali-Wazuh-SSH-Lab)
+- [Technical documentation](https://github.com/shivansh2589/cybersecurity-home-lab/tree/main/Kali-Wazuh-SSH-Lab)
 
 
 ### Microsoft 365 Email Security Monitoring
