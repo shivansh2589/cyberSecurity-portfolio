@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kali–Wazuh SSH Detection and Defense</title><meta name="description" content="Controlled SSH home-lab detection, investigation, and account-specific hardening."><style>
+    :root {
+      --bg: #071018;
+      --panel: #0d1722;
+      --panel2: #101d2b;
+      --text: #edf7ff;
+      --muted: #9eb0c2;
+      --accent: #11d7ff;
+      --accent2: #68f0c2;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.30);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:linear-gradient(180deg,#071018 0%,#0a111a 100%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1160px,92%);margin:auto}
+    header{position:sticky;top:0;z-index:50;background:rgba(7,16,24,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    nav{display:flex;align-items:center;justify-content:space-between;min-height:72px;gap:22px}
+    .brand{font-weight:800;letter-spacing:.4px}.brand span{color:var(--accent)}
+    .navlinks{display:flex;flex-wrap:wrap;gap:18px;font-size:.95rem}.navlinks a{color:var(--muted)}.navlinks a:hover{color:var(--accent)}
+    .hero{min-height:88vh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}
+    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(17,215,255,.12),transparent 42%)}
+    .hero-content{position:relative;max-width:900px;padding:80px 0}
+    .eyebrow{font-family:Consolas,monospace;color:var(--accent);font-size:1rem;margin-bottom:14px}
+    h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.95;margin:.1em 0 .18em;font-weight:900;letter-spacing:-3px}
+    h1 span{color:var(--accent)}
+    .subtitle{color:#c9d5df;font-size:clamp(1.05rem,2vw,1.35rem);margin-bottom:22px}
+    .intro{max-width:760px;margin:0 auto;color:var(--muted);font-size:1.08rem}
+    .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:34px}
+    .btn{display:inline-block;padding:13px 22px;border-radius:10px;font-weight:700;border:1px solid var(--border);transition:.2s ease}
+    .btn.primary{background:var(--accent);color:#001017;border-color:var(--accent)}
+    .btn.secondary{background:#15202c;color:#d8e2ea}.btn:hover{transform:translateY(-2px)}
+    section{padding:88px 0;scroll-margin-top:80px}
+    .section-title{font-size:2.2rem;margin:0 0 10px}.section-kicker{color:var(--accent);font-family:Consolas,monospace}.section-copy{color:var(--muted);max-width:800px;margin-bottom:34px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+    .card h3{margin-top:0;font-size:1.25rem}.card p,.card li{color:var(--muted)}
+    .cert-meta{font-size:.92rem;color:#b9c8d6;margin:.35rem 0}.cert-link{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700}.cert-link:hover{text-decoration:underline}
+    .pillbox{display:flex;flex-wrap:wrap;gap:9px}.pill{padding:7px 11px;border:1px solid rgba(17,215,255,.25);border-radius:999px;background:rgba(17,215,255,.06);color:#cceef7;font-size:.9rem}
+    .project-card{position:relative;overflow:hidden}.project-card:after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .project-meta{font-size:.9rem;color:var(--accent);font-family:Consolas,monospace;margin-bottom:8px}
+    .evidence-link{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700}
+    .evidence-link:hover{text-decoration:underline}
+    .lab-diagram{font-family:Consolas,monospace;background:#08131d;border:1px solid var(--border);border-radius:14px;padding:20px;color:#bfeaff;overflow:auto;white-space:pre}
+    .achievements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.achievement{display:flex;gap:14px;align-items:flex-start}.dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:8px;box-shadow:0 0 16px rgba(17,215,255,.8);flex:0 0 auto}
+    footer{border-top:1px solid var(--border);padding:32px 0 50px;color:var(--muted);text-align:center}
+    .contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:18px}.contact-links a{color:var(--accent)}
+    @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}.achievements{grid-template-columns:1fr}.navlinks{gap:11px;font-size:.88rem}}
+    @media (max-width:650px){nav{align-items:flex-start;padding:16px 0}.navlinks{justify-content:flex-end}.grid{grid-template-columns:1fr}h1{letter-spacing:-1.5px}.hero{min-height:auto}}
+  
+figure{margin:20px 0}figcaption{color:var(--muted);margin-top:12px}
+main{padding:48px 0}section{padding:24px 0}article{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0}a{text-decoration:underline}h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.15}p,li{max-width:85ch}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:12px;border-bottom:1px solid var(--border)}pre{overflow:auto;padding:18px;background:var(--panel2)}footer{padding:24px 0}</style></head><body><header><nav class="wrap"><a class="brand" href="index.html">LS<span>::sec</span></a><a href="index.html#projects">Projects</a></nav></header><main class="wrap"><p class="eyebrow">AUTHORIZED HOME LAB · DETECTION AND DEFENSE</p><h1>Kali–Wazuh SSH Detection and Defense</h1><p>Followed a controlled SSH authentication failure from the Ubuntu journal to a custom Wazuh alert, then tested account-specific password restrictions and removed temporary network access.</p><article><h2>Verified achievement</h2><p>Built and validated Wazuh rule <strong>100510, level 6</strong> for the dedicated lab account and source. Confirmed a real event in both the manager alert file and Threat Hunting. After SSH hardening, the same password-only client command failed without a password prompt, while a fresh management login succeeded.</p></article><section><h2>Lab architecture</h2><pre>Kali ── dedicated Proxmox test bridge ── Ubuntu test interface
+                                            │
+                                  management interface
+                                            │
+                                      Wazuh manager</pre><p>The test bridge had no physical uplink, host address, or gateway. Kali had no default route. Ubuntu retained management connectivity, with IPv4 and IPv6 forwarding disabled.</p></section><section><h2>Evidence and results</h2><table><thead><tr><th>Stage</th><th>Observed result</th></tr></thead><tbody><tr><td>Network baseline</td><td>TCP port 22 filtered before a temporary source-scoped UFW allowance, then open.</td></tr><tr><td>Authentication baseline</td><td>Two verified failed-password events; Wazuh rules 5760 and 5503 detected SSH and PAM failures.</td></tr><tr><td>Custom detection</td><td>Live rule 100510 alert verified in alerts.json and the dashboard.</td></tr><tr><td>Account hardening</td><td>Password and keyboard-interactive authentication disabled for sshlab.</td></tr><tr><td>Client verification</td><td>Password-only SSH rejected without a prompt; server recorded a preauthentication closure.</td></tr><tr><td>Cleanup</td><td>Management login succeeded; temporary test-network SSH allowance removed.</td></tr></tbody></table></section><section><h2>Investigation and limits</h2><p>A positive rule test initially passed while a live event matched the built-in rule. Removing the hostname condition resolved the observed discrepancy after validation and restart. The exact internal cause was not established.</p><p>The final custom rule scopes by source address and account across monitored endpoints. Brute-force correlation thresholds and working key authentication were not tested. A PAM alert is not an additional independent password attempt.</p><p>Original screenshots were inspected during the lab. Public screenshot copies are pending redaction; this page contains no reconstructed evidence.</p></section><section><h2>Technical documentation</h2><p><a href="https://github.com/shivansh2589/cybersecurity-home-lab/tree/main/Kali-Wazuh-SSH-Lab">Read the setup, timeline, sanitized configuration examples, and validation limits</a>.</p></section></main><footer class="wrap"><a href="m365-email-security.html">Microsoft 365 Email Security Monitoring</a> · <a href="index.html">Portfolio home</a></footer></body></html>
