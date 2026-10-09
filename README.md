@@ -31,9 +31,9 @@ The portfolio includes:
 
 Validated controlled SSH failures on a dedicated test bridge, traced journald events to a real custom Wazuh rule 100510 alert, and tested account-specific password restrictions. A fresh management login succeeded, and the temporary test-network firewall allowance was removed.
 
-**Achievement:** Verified the detection pipeline and before/after SSH behavior with real terminal and dashboard evidence. Public screenshot copies are pending redaction; brute-force correlation and working key login were not tested.
+**Achievement:** Verified the detection pipeline and before/after SSH behavior with real terminal and dashboard evidence. Two redacted original screenshots show the custom Wazuh alert and password-only SSH before/after behavior; brute-force correlation and working key login were not tested.
 
-- [Project page source](kali-wazuh-ssh-lab.html)
+- [Project page with redacted evidence](https://shivansh2589.github.io/cyberSecurity-portfolio/kali-wazuh-ssh-lab.html)
 - [Technical documentation](https://github.com/shivansh2589/cybersecurity-home-lab/tree/main/Kali-Wazuh-SSH-Lab)
 
 
