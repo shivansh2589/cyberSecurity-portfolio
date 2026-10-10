@@ -23,7 +23,7 @@ The portfolio includes:
 - Splunk training and security-monitoring skills
 - Linux and Windows administration
 - Certifications and technical training
-- Resume and professional experience
+- [Functional résumé (web version)](https://shivansh2589.github.io/cyberSecurity-portfolio/functional-resume.html) and professional experience
 
 ## Featured Projects
 
