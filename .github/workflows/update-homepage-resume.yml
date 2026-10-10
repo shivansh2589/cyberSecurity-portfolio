@@ -1,0 +1,49 @@
+name: Update homepage resume link
+on:
+  push:
+    paths:
+      - '.github/workflows/update-homepage-resume.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update-link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace resume button destination
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          import html
+          path = Path('index.html')
+          source = path.read_text(encoding='utf-8')
+          dest = 'functional-resume.html'
+          # Change links displaying Resume / Résumé / Download CV.
+          pattern = re.compile(r'<a\b[^>]*>.*?</a>', re.I | re.S)
+          count = [0]
+          def update(match):
+              tag = match.group()
+              visible = re.sub(r'<[^>]+>', ' ', tag)
+              visible = html.unescape(visible)
+              if not re.search(r'(?i)\b(resum[eé]|cv)\b', visible): return tag
+              if not (re.search(r'(?i)download|resum[eé]|cv', tag)): return tag
+              changed, n = re.subn(r'\bhref\s*=\s*(["\']).*?\1', f'href="{dest}"', tag, count=1, flags=re.I|re.S)
+              if not n: return tag
+              changed = re.sub(r'\sdownload(?:\s*=\s*(["\']).*?\1)?(?=\s|>)', '', changed, flags=re.I|re.S)
+              if changed != tag: count[0] += 1
+              return changed
+          result = pattern.sub(update, source)
+          if count[0] == 0:
+              raise SystemExit('No labeled résumé link found; original homepage unchanged')
+          path.write_text(result, encoding='utf-8')
+          print(f'Updated {count[0]} résumé link(s).')
+      - name: Commit homepage change
+        run: |
+          if git diff --quiet -- index.html; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m "Point homepage résumé button to functional résumé"
+          git push
