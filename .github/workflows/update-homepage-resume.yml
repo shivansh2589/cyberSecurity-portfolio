@@ -35,8 +35,13 @@ jobs:
               if changed != tag: count[0] += 1
               return changed
           result = pattern.sub(update, source)
-          if count[0] == 0:
+          if count[0] == 0 and 'functional-resume.html' not in source:
               raise SystemExit('No labeled résumé link found; original homepage unchanged')
+          result = result.replace('id="downloadResumeHero"', 'id="functionalResumeHero"')
+          result = result.replace('id="downloadResumeSection"', 'id="functionalResumeSection"')
+          result = result.replace('Download Resume (.docx)', 'View Functional Résumé')
+          result = result.replace('Download Resume</a>', 'View Functional Résumé</a>')
+          result = result.replace('four-week cybersecurity practicum', 'three-week cybersecurity practicum')
           path.write_text(result, encoding='utf-8')
           print(f'Updated {count[0]} résumé link(s).')
       - name: Commit homepage change
