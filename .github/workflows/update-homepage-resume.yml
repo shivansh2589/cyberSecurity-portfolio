@@ -1,4 +1,4 @@
-name: Update homepage resume link
+name: Keep one View Resume button
 on:
   push:
     paths:
@@ -7,48 +7,35 @@ on:
 permissions:
   contents: write
 jobs:
-  update-link:
+  update-resume:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Replace resume button destination
+      - name: Deduplicate resume links
         shell: python
         run: |
           from pathlib import Path
           import re
-          import html
-          path = Path('index.html')
-          source = path.read_text(encoding='utf-8')
-          dest = 'functional-resume.html'
-          # Change links displaying Resume / Résumé / Download CV.
-          pattern = re.compile(r'<a\b[^>]*>.*?</a>', re.I | re.S)
-          count = [0]
-          def update(match):
-              tag = match.group()
-              visible = re.sub(r'<[^>]+>', ' ', tag)
-              visible = html.unescape(visible)
-              if not re.search(r'(?i)\b(resum[eé]|cv)\b', visible): return tag
-              if not (re.search(r'(?i)download|resum[eé]|cv', tag)): return tag
-              changed, n = re.subn(r'\bhref\s*=\s*(["\']).*?\1', f'href="{dest}"', tag, count=1, flags=re.I|re.S)
-              if not n: return tag
-              changed = re.sub(r'\sdownload(?:\s*=\s*(["\']).*?\1)?(?=\s|>)', '', changed, flags=re.I|re.S)
-              if changed != tag: count[0] += 1
-              return changed
-          result = pattern.sub(update, source)
-          if count[0] == 0 and 'functional-resume.html' not in source:
-              raise SystemExit('No labeled résumé link found; original homepage unchanged')
-          result = result.replace('id="downloadResumeHero"', 'id="functionalResumeHero"')
-          result = result.replace('id="downloadResumeSection"', 'id="functionalResumeSection"')
-          result = result.replace('Download Resume (.docx)', 'View Functional Résumé')
-          result = result.replace('Download Resume</a>', 'View Functional Résumé</a>')
-          result = result.replace('four-week cybersecurity practicum', 'three-week cybersecurity practicum')
-          path.write_text(result, encoding='utf-8')
-          print(f'Updated {count[0]} résumé link(s).')
-      - name: Commit homepage change
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          # Keep navigation pointing to the homepage resume section.
+          s = re.sub(r'(<a\s+href=")functional-resume\.html(">Resume</a>)', r'\1#resume\2', s, count=1)
+          # Keep one prominent hero button for recruiters.
+          s, n = re.subn(r'<a\b[^>]*>View Resume</a>', '<a class="btn secondary" href="functional-resume.html">View Resume</a>', s, count=1, flags=re.I)
+          if n != 1:
+              raise SystemExit('Could not locate the main View Resume button; no edit applied.')
+          # Remove redundant hero download/view button, without leaving a broken control.
+          s = re.sub(r'\s*<a\b[^>]*\bid="(?:downloadResumeHero|functionalResumeHero)"[^>]*>.*?</a>', '', s, count=1, flags=re.S|re.I)
+          # Remove duplicate resume section CTA. Section content and navigation stay.
+          s = re.sub(r'\s*<div class="cta" style="justify-content:flex-start;margin:0 0 28px">\s*<a\b[^>]*\bid="(?:downloadResumeSection|functionalResumeSection)"[^>]*>.*?</a>\s*</div>', '', s, count=1, flags=re.S|re.I)
+          # Ensure the one remaining visible action is consistently labeled.
+          p.write_text(s, encoding='utf-8')
+          print('One primary View Resume button retained.')
+      - name: Commit
         run: |
           if git diff --quiet -- index.html; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m "Point homepage résumé button to functional résumé"
+          git commit -m "Keep one View Resume button on portfolio"
           git push
